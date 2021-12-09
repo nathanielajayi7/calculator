@@ -21,13 +21,13 @@ class TopChip extends StatelessWidget {
           padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
             border: Border.all(width: 0, color: Colors.transparent),
-            color: lightMode! ? HexColor.fromHex(model!.light[2]) : HexColor.fromHex(model!.dark[2]),
+            color: lightMode! ? HexColor.fromHex(model!.light[1]) : HexColor.fromHex(model!.dark[1]),
            // shape: BoxShape.circle,
            borderRadius: BorderRadius.all(Radius.circular(15)),
             boxShadow: [
               BoxShadow(
                 spreadRadius: 1,
-                color: lightMode! ? HexColor.fromHex(model!.light[1]) : HexColor.fromHex(model!.dark[1]),
+                color: lightMode! ? HexColor.fromHex(model!.light[2]) : HexColor.fromHex(model!.dark[2]),
                 offset: Offset(0, 0),
                 blurRadius: 1,
               )

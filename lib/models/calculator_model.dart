@@ -8,14 +8,64 @@ class CalculatorModel {
   bool isLight = true;
 
   String mathExpression = '';
-  List<dynamic> list = ['AC', '(', ')', '/', '7', '8', '9', 'x', '6', '5', '4', '-',
-  '1', '2', '3', '+', '%', '0', '.', CupertinoIcons.delete_left]; 
+  String display = '';
+  bool negation = false;
+  
+  List<dynamic> list = [
+    {
+      'name' :'AC',
+      'color' : Color(0xff35d5b7) 
+    },
+    {
+      'name' :'+/-',
+      'color' : Color(0xff35d5b7) 
+    },
+    {
+      'name' :'%',
+      'color' : Color(0xff35d5b7) 
+    },
+    {
+      'name' : '÷',
+      'color' : Color(0xffe96668) 
+    },
+    '7',
+    '8', 
+    '9',
+    {
+      'name' :'x',
+      'color' : Color(0xffe96668) 
+    }, 
+    '6', 
+    '5', 
+    '4', 
+    {
+      'name' :'-',
+      'color' : Color(0xffe96668) 
+    },
+    '1',
+    '2',
+    '3',
+    {
+      'name' :'+',
+      'color' : Color(0xffe96668) 
+    },
+    CupertinoIcons.restart,
+    '0',
+    '.',
+    {
+      'name' :'=',
+      'color' : Color(0xffe96668) 
+    },
+    ]; 
   get mathSolution {
     String s = mathExpression;
     s = s.replaceAll("x", " * ");
     s = s.replaceAll("%", "/ 100");
+    s = s.replaceAll("÷" , "/");
     try {
-      return s.interpret();
+      num d = s.interpret();
+      double f = d.toDouble();
+      return (f % 1 == 0) ? d.toInt() : d;
     } catch (e) {
       return '';
     }
@@ -26,13 +76,31 @@ class CalculatorModel {
   }
 
   set addMathExp(String s) {
+    if(negation){
+      
+    mathExpression += ("" + s + ")");
+    negation = false;
+
+    return;
+
+    }
     mathExpression += (" " + s);
   }
 
-  List dark = ['#22252d', '#292d36', '#272b33'];
-  List light = ['#ffffff', '#f9f9f9', '#f7f7f7'];
+  List dark = ['#121212', '#222222', '#202020'];
+  List light = ['#ffffff', '#f9f9f9', '#f5f5f5'];
 
   set setState(CalculatorState st) {
     state = st;
+ 
   }
+
+  String newString(int n) {
+  if (mathExpression.length >= n) {
+    return mathExpression.substring(mathExpression.length - n);
+  } else {
+    return '';
+    // return whatever you want
+  }
+}
 }

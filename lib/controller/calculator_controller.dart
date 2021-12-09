@@ -11,9 +11,8 @@ class CalculatorController extends ControllerMVC{
 
   void press(dynamic s){
     print(s);
-    if(s is String){
-      parse(s);
-    }
+      parse((s is String) ? s : s['name']);
+    
   }
 
   void iconPress(dynamic s){
@@ -33,27 +32,59 @@ class CalculatorController extends ControllerMVC{
 
   parseIcon(IconData data){
     print(data.codePoint);
-    if(model.mathExpression.isEmpty){
+    
+    switch(data.codePoint) {
+     case 61980 : {
+       if(model.mathExpression.isEmpty){
       return;
     }
-    switch(data.codePoint) {
-     case 63009 : {
        model.state!.setState(() {
 
         model.mathExpression = model.mathExpression.substring(0, model.mathExpression.length - 1);
+        
+          model.negation = (model.mathExpression.contains("(-") && !model.mathExpression.contains(")"));
+        
           
         });
         break;
      }
     }
   }
-  parse(String s){
+  parse(dynamic s){
     switch(s){
       case 'AC' : {
         model.state!.setState(() {
 
+        model.display = '';
         model.mathExpression = '';
           
+        });
+        break;
+
+      }
+      case '=' : {
+        if(model.display.isNotEmpty){
+          return;
+        }
+        model.state!.setState(() {
+        
+        model.display = model.mathSolution.toString();
+        model.mathExpression = '';
+          
+        });
+        break;
+
+      }
+      case '+/-' : {
+        if(model.display.isNotEmpty){
+          return;
+        }
+        model.state!.setState(() {
+        
+        model.display = '';
+        model.mathExpression +=  ' (-';
+        model.negation = true;
+
         });
         break;
 
@@ -61,7 +92,9 @@ class CalculatorController extends ControllerMVC{
       default: {
         model.state!.setState(() {
 
-        model.addMathExp = s;
+        model.display = '';
+
+        model.addMathExp = (s is String) ? s : s['name'];
           
         });
         break;

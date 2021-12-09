@@ -17,7 +17,7 @@ class MyIconButton extends StatelessWidget {
             border: Border.all(width: 0, color: Colors.transparent),
             color: lightMode! ? HexColor.fromHex(model!.light[2]) : HexColor.fromHex(model!.dark[2]),
            // shape: BoxShape.circle,
-           borderRadius: BorderRadius.all(Radius.circular(15)),
+           borderRadius: BorderRadius.all(Radius.circular(25)),
             boxShadow: [
               BoxShadow(
                 spreadRadius: 1,
@@ -30,10 +30,11 @@ class MyIconButton extends StatelessWidget {
         alignment: Alignment.center,
         child: Material(
               color: lightMode! ? HexColor.fromHex(model!.light[2]) : HexColor.fromHex(model!.dark[2]),
-             borderRadius: BorderRadius.all(Radius.circular(15)),
+             borderRadius: BorderRadius.all(Radius.circular(25)),
             child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(15)),
+              borderRadius: BorderRadius.all(Radius.circular(25)),
               onTap: (){
+                print(s);
                 onPress!.call();
               },
               child: Container(
@@ -42,7 +43,7 @@ class MyIconButton extends StatelessWidget {
           
             alignment: Alignment.center,
             child:  Icon(s!,
-            color: model!.isLight ? HexColor.fromHex(model!.dark[1]) : HexColor.fromHex(model!.light[1]),
+            color: model!.isLight ? Colors.black : Colors.white,
             size: 20,)))));
   }
 }

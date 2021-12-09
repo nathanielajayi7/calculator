@@ -11,11 +11,14 @@ class PortraitView extends StatelessWidget{
   const PortraitView({Key? key, @required this.ct}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height * 0.65;
     return Container(
+      
       child: Column(
         children : [
           
            TopChip(lightMode: ct!.model.isLight, model: ct!.model),
+
               SizedBox(
                 height: 10,
               ),
@@ -27,19 +30,23 @@ class PortraitView extends StatelessWidget{
                     ct!.model.mathExpression,
                     style: TextStyle(fontSize: 30, 
                     color: ct!.model.isLight ? HexColor.fromHex(ct!.model.dark[2]) : HexColor.fromHex(ct!.model.light[2])))),
-              Container(
+              
+             Flexible(
+               flex: 0,
+               child: Container(
                   alignment: Alignment.bottomRight,
-                  padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
-                  child: Text(ct!.model.mathSolution.toString(),
+                  padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                  child:  Text(ct!.model.display.isNotEmpty ? ct!.model.display : ct!.model.mathSolution.toString(),
+                  overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 55, fontWeight: FontWeight.bold,
-                          color: ct!.model.isLight ? HexColor.fromHex(ct!.model.dark[1]) : HexColor.fromHex(ct!.model.light[1])))),
+                          color: ct!.model.isLight ? HexColor.fromHex(ct!.model.dark[1]) : HexColor.fromHex(ct!.model.light[1]))))),
                           SizedBox(
-                height: 15,
+                height: 5,
               ),
-            
-             Expanded(
-                child: Container(
+            Expanded(
+              child: Container(
+                  height: height,
                   padding: EdgeInsets.all(8),
               
               decoration: new BoxDecoration(
@@ -58,6 +65,8 @@ class PortraitView extends StatelessWidget{
                         crossAxisCount: 4),
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
+                        height: height/5,
+                        width: height /5,
                         child: (ct!.model.list[index] is IconData) 
                         ? MyIconButton(
                          lightMode: ct!.model.isLight,
@@ -75,7 +84,7 @@ class PortraitView extends StatelessWidget{
                     },
                   ),
                 ),
-              )
+            )
               
         ]
       )
